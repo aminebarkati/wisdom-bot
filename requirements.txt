@@ -1,0 +1,6 @@
+Flask
+discord
+requests
+json
+discord.ext
+threading
