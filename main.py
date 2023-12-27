@@ -65,17 +65,23 @@ async def ping(ctx):
 
 @bot.command()
 async def img(ctx, *args):
-  await ctx.send(get_image(args))
+  setup = ' '.join(args)
+  await ctx.send(get_image(setup))
 
 
 @bot.command()
 async def cl(ctx):
-  t = ["joineddate", "inspire", "ping", "img '....'"]
+  t = [
+      "joineddate", "inspire", "ping", "img '....'",
+      "tictactoe @you @yourfriend"
+  ]
   msg = f"${t[0]}" + " " * (30 - len(
       t[0])) + "#when a member joined\n" + f"${t[1]}" + " " * (30 - len(
           t[1])) + "#get a random quote\n" + f"${t[2]}" + " " * (30 - len(
               t[2])) + "#it tell the bot's ping\n" + f"${t[3]}" + " " * (
-                  30 - len(t[3])) + "#get a random image from the web"
+                  30 - len(t[3])
+              ) + "#get a random image from the web\n" + f"${t[4]}" + " " * (
+                  30 - len(t[4])) + "#play tictactoe with your friend"
   await ctx.send(msg)
 
 
@@ -185,7 +191,7 @@ async def pl(ctx, pos: int):
     else:
       await ctx.send("It is not your turn.")
   else:
-    await ctx.send("Please start a new game using the %tictactoe command.")
+    await ctx.send("Please start a new game using the $tictactoe command.")
 
 
 def checkWinner(winningConditions, mark):
@@ -202,9 +208,7 @@ async def tictactoe_error(ctx, error):
   if isinstance(error, commands.MissingRequiredArgument):
     await ctx.send("Please mention 2 players for this command.")
   elif isinstance(error, commands.BadArgument):
-    await ctx.send(
-        "Please make sure to mention/ping players (ie. <@688534433879556134>)."
-    )
+    await ctx.send("Please make sure to mention/ping players).")
 
 
 @pl.error
